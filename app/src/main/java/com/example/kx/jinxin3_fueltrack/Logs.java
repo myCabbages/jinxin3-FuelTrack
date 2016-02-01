@@ -13,7 +13,14 @@ public class Logs {
     protected String unitcost;
     protected Float totalcost;
 
-    public Logs() {
+    public Logs(String date, String station, String odometer, String grade, String unitcost, String amount) {
+        this.date = date;
+        this.station = station;
+        this.odometer = odometer;
+        this.grade = grade;
+        this.unitcost = unitcost;
+        this.amount = amount;
+        this.totalcost= Float.valueOf(this.amount) * Float.valueOf(this.unitcost);
     }
 
     public String getDate() {
@@ -68,9 +75,6 @@ public class Logs {
         this.station = station;
     }
 
-    public void calculateTotal(){
-        totalcost= Float.valueOf(amount) * Float.valueOf(unitcost);
-    }
 
     public String toLog(){
         return date + " | " + station + "|" + grade

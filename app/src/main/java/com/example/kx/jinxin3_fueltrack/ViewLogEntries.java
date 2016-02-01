@@ -28,11 +28,10 @@ import java.util.ArrayList;
 
 public class ViewLogEntries extends AppCompatActivity {
 
-    private ListView oldlog;
+    private ListView oldLogView;
     private ArrayList<Logs> logs = new ArrayList<Logs> ();
-    private static final String FILENAME = "file.sav";
+    private static final String FILENAME = "file2.sav";
     private ArrayAdapter<Logs> adapter;
-    //String logId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +40,14 @@ public class ViewLogEntries extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        oldlog = (ListView) findViewById(R.id.oldloglist);
-        oldlog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        oldLogView = (ListView) findViewById(R.id.oldloglist);
+        oldLogView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(ViewLogEntries.this, "View Old Log Entries", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ViewLogEntries.this, EditNewLog.class);
                 intent.putExtra("pos", position);
                 startActivity(intent);
-                //logId = String.valueOf(id);
-                //Cursor c = Logs.getById(logId);
             }
         });
     }
@@ -61,7 +58,7 @@ public class ViewLogEntries extends AppCompatActivity {
         loadFromFile();
         adapter = new ArrayAdapter<Logs>(this,
                 R.layout.list_view, logs);
-        oldlog.setAdapter(adapter);
+        oldLogView.setAdapter(adapter);
     }
 
     private void loadFromFile() {
@@ -71,7 +68,7 @@ public class ViewLogEntries extends AppCompatActivity {
             Gson gson = new Gson();
 
             // Took from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.html 01-19 2016
-            Type listType = new TypeToken<ArrayList<String>>() {
+            Type listType = new TypeToken<ArrayList<Logs>>() {
             }.getType();
             logs = gson.fromJson(in, listType);
 

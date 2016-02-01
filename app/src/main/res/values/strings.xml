@@ -10,4 +10,5 @@
     <string name="title_activity_nul00">nul00</string>
     <string name="title_activity_edit_exist_log">EditExistLog</string>
     <string name="title_activity_view_log_entries">ViewLogEntries</string>
+    <string name="title_activity_add_new_log">AddNewLog</string>
 </resources>

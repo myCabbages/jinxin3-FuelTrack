@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -36,18 +34,17 @@ public class EditNewLog extends AppCompatActivity {
     private EditText dateText;
     private int list_index;
 
-
-    private ArrayList<String> logs = new ArrayList<>();
-    private ArrayList<Logs> oldlogs = new ArrayList<>();
-    private ArrayAdapter<Logs> adapter;
-    private static final String FILENAME = "file.sav";
-    Logs latestLog = new Logs();
+    private Logs new_Log;
+    private ArrayList<Logs> logs = new ArrayList<Logs>();
+    private static final String FILENAME = "file2.sav";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_new_log);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
         list_index = intent.getIntExtra("pos",0);
@@ -57,21 +54,16 @@ public class EditNewLog extends AppCompatActivity {
         stationText = (EditText) findViewById(R.id.editStation);
         odoText = (EditText) findViewById(R.id.editOdometer);
         gradeText = (EditText) findViewById(R.id.editGrade);
-        amountText = (EditText) findViewById(R.id.editAmount);
+        amountText = (EditText) findViewById(R.id.editAmount2);
         unitcosText = (EditText) findViewById(R.id.editunitcost);
         dateText = (EditText) findViewById(R.id.editDate);
 
-
-        stationText.setText(oldlogs.get(list_index).getStation());
-        odoText.setText(oldlogs.get(list_index).getOdometer());
-        gradeText.setText(oldlogs.get(list_index).getGrade());
-        amountText.setText(oldlogs.get(list_index).getAmount());
-        unitcosText.setText(oldlogs.get(list_index).getUnitcost());
-        dateText.setText(oldlogs.get(list_index).getUnitcost());
-
-
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        stationText.setText(logs.get(list_index).getStation());
+        odoText.setText(logs.get(list_index).getOdometer());
+        gradeText.setText(logs.get(list_index).getGrade());
+        amountText.setText(logs.get(list_index).getAmount());
+        unitcosText.setText(logs.get(list_index).getUnitcost());
+        dateText.setText(logs.get(list_index).getDate());
 
         Button cancelButton = (Button) findViewById(R.id.cancelbutton);
 
@@ -87,33 +79,31 @@ public class EditNewLog extends AppCompatActivity {
         Button saveButton = (Button) findViewById(R.id.savebutton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                Toast.makeText(EditNewLog.this, "Saved", Toast.LENGTH_SHORT).show();
-                String text1 = stationText.getText().toString();
-                String text2 = odoText.getText().toString();
-                String text3 = gradeText.getText().toString();
-                String text4 = amountText.getText().toString();
-                String text5 = unitcosText.getText().toString();
-                String text6 = dateText.getText().toString();
-                latestLog.setStation(text1);
-                latestLog.setOdormeter(text2);
-                latestLog.setGrade(text3);
-                latestLog.setAmount(text4);
-                latestLog.setUnitcost(text5);
-                latestLog.setDate(text6);
-                latestLog.calculateTotal();
-                logs.add(latestLog.toLog()); 
+                //setResult(RESULT_OK);
+                Toast.makeText(EditNewLog.this, "Saving", Toast.LENGTH_SHORT).show();
+                String text1 = dateText.getText().toString();
+                String text2 = stationText.getText().toString();
+                String text3 = odoText.getText().toString();
+                String text4 = gradeText.getText().toString();
+                String text5 = amountText.getText().toString();
+                String text6 = unitcosText.getText().toString();
 
-                saveInFile();
-                finish();
+                try {
+                    new_Log = new Logs(text1,text2,text3,text4,text5,text6);
+                    loadFromFile();
+                    logs.set(list_index,new_Log);
+                    saveInFile();
+                    finish();
+                }catch (Exception e){
+                    Toast.makeText(EditNewLog.this, "Wrong", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-    }
 
     private void saveInFile() {
         try {
@@ -142,11 +132,16 @@ public class EditNewLog extends AppCompatActivity {
             // Took from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.html 01-19 2016
             Type listType = new TypeToken<ArrayList<Logs>>() {
             }.getType();
-            oldlogs = gson.fromJson(in, listType);
+            logs = gson.fromJson(in, listType);
+            //unedited_Log = logs;
+
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
-            logs = new ArrayList<String>();
+            logs = new ArrayList<Logs>();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
         }
     }
 

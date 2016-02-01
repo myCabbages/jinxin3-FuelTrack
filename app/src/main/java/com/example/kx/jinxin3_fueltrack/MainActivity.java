@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Edit a new entry", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, EditNewLog.class);
+                Toast.makeText(MainActivity.this, "Add a new entry", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, AddNewLog.class);
                 startActivity(intent);
             }
         });

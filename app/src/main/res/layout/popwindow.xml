@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#fefdfd">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm"
+        android:id="@+id/confirmbutton"
+        android:background="#d1d1d4"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/cancelpop"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#d1d1d4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Are you sure saving this change ?"
+        android:id="@+id/pop_View"
+        android:layout_gravity="top"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/confirmbutton"
+        android:layout_toRightOf="@+id/cancelpop"
+        android:layout_toStartOf="@+id/confirmbutton"
+        android:layout_toLeftOf="@+id/confirmbutton" />
 </RelativeLayout>

@@ -19,16 +19,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".viewlogentries"
-            android:label="@string/title_activity_viewlogentries"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".EditNewLog"
             android:label="@string/title_activity_edit_new_log"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ViewLogEntries"
             android:label="@string/title_activity_view_log_entries"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Pop"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".AddNewLog"
+            android:label="@string/title_activity_add_new_log"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

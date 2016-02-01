@@ -110,7 +110,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editAmount"
+        android:id="@+id/editAmount2"
         android:layout_below="@+id/amountView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -122,11 +122,11 @@
         android:layout_height="wrap_content"
         android:text="Fuel Unit Cost"
         android:id="@+id/unitcostView"
-        android:layout_below="@+id/editAmount"
+        android:layout_below="@+id/editAmount2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editAmount"
-        android:layout_alignEnd="@+id/editAmount" />
+        android:layout_alignRight="@+id/editAmount2"
+        android:layout_alignEnd="@+id/editAmount2" />
 
     <EditText
         android:layout_width="wrap_content"
